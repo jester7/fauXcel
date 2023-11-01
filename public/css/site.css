@@ -383,6 +383,13 @@ h3 {
   border: 1px solid var(--cell-border);
 }
 
+.cellgrid .col-label.selected,
+.cellgrid .row-label.selected {
+  color: var(--cell-label-text-selected);
+  font-variation-settings: "wght" 600;
+  background-color: var(--cell-label-bg-selected);
+}
+
 .cellgrid .row.wrapper {
   float: left;
   clear: both;

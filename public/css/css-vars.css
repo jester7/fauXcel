@@ -31,5 +31,7 @@
   --cell-border: hsl(190, 34%, 88%);
   --cell-max-width: 8em;
   --cell-label-bg: #06231Dff;
+  --cell-label-bg-selected: var(--primary-color);
   --cell-label-text: var(--button-text);
+  --cell-lable-text-selected: var(--dark-color-1);
 }

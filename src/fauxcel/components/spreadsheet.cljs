@@ -6,16 +6,17 @@
    [fauxcel.base.keyboard-handlers :as keyboard-handlers :refer [keyboard-navigation]]
    [fauxcel.base.utility :as base-util :refer [update-selection! col-label
                                                selection-cell-ref recursive-deref
-                                               cell-ref-for-input]]))
+                                               cell-ref-for-input row-in-range? col-in-range?]]))
 
 (defn cellgrid []
   [:div.cellgrid.wrapper {:on-key-down keyboard-navigation}
    (doall (for [row (range 0 max-rows)]
             [:div.row.wrapper {:key (str "row" row)}
-             [:span.row-label row]
+             [:span.row-label {:key (str "row-label" row) :class
+                                   (if (row-in-range? row @current-selection) "selected" "")} row]
              (doall (for [col (range 1 max-cols)]
                       (if (= row 0)
-                        (col-label col)
+                        (col-label col (col-in-range? col @current-selection))
                         [:input {:default-value (base-util/recursive-deref (:value (@cells-map (base-util/cell-ref row col))))
                                  :read-only true
                                  :key (str
