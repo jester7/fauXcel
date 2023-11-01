@@ -9,6 +9,9 @@
 
 (def ^:const cells-parent-selector "#app")
 
+(defn str-empty? [^string str]
+  (or (nil? str) (= "" str)))
+
 (defn num-to-char [num]
   (char (+ num 64)))
 
@@ -40,11 +43,11 @@
 
 (defn cell-out-of-range? [child-bounding-rect parent-bounding-rect]
   {:horizontal (or (> (.-left child-bounding-rect) (.-left parent-bounding-rect) (.-width parent-bounding-rect))
-              (> (+ (.-left child-bounding-rect) (.-width child-bounding-rect))
-                (+ (.-left parent-bounding-rect) (.-width parent-bounding-rect))))
-  :vertical (or (> (.-top child-bounding-rect) (.-top parent-bounding-rect) (.-height parent-bounding-rect))
-            (> (+ (.-top child-bounding-rect) (.-height child-bounding-rect))
-              (+ (.-top parent-bounding-rect) (.-height parent-bounding-rect))))})
+                   (> (+ (.-left child-bounding-rect) (.-width child-bounding-rect))
+                      (+ (.-left parent-bounding-rect) (.-width parent-bounding-rect))))
+   :vertical (or (> (.-top child-bounding-rect) (.-top parent-bounding-rect) (.-height parent-bounding-rect))
+                 (> (+ (.-top child-bounding-rect) (.-height child-bounding-rect))
+                    (+ (.-top parent-bounding-rect) (.-height parent-bounding-rect))))})
 
 (defn scroll-to-cell
   ([cell-ref] (scroll-to-cell cell-ref false true)) ; default just scroll, no range check, smooth yes
@@ -74,8 +77,10 @@
   (let [matches (re-matches c/cell-ref-re cell-ref)]
     {:row (js/parseInt (matches 2)) :col (matches 1)}))
 
-(defn col-label [col-num]
-  [:span.col-label {:key (str "col-label-" (num-to-char col-num))} (num-to-char col-num)])
+(defn col-label [^number col-num ^boolean selected?]
+  [:span.col-label {:key (str "col-label-" (num-to-char col-num))
+                    :class (if selected? "selected" "")}
+   (num-to-char col-num)])
 
 (defn cell-ref-for-input [^js/HTMLElement input-el]
   (cell-ref (js/parseInt (-> input-el .-dataset .-row)) (js/parseInt (-> input-el .-dataset .-col))))
@@ -193,3 +198,34 @@
 
 (defn not-empty-cell-range? [^string cell-refs]
   (not (empty-cell-range? cell-refs)))
+
+;; Returns true if cell is contained in the range
+(defn cell-in-range? [^string cell-ref ^string range-str]
+  (or (some #(= cell-ref %) (expand-cell-range range-str)) false)) ; or coerces to false if nil
+
+;; Returns true if row number is contained in range string
+(defn row-in-range? [^number row ^string range-str]
+  (if (str-empty? range-str)
+    false
+    (let [matches (if (not (cell-range? range-str))
+                    (re-matches c/cell-range-start-end-re (str range-str ":" range-str))
+                    (re-matches c/cell-range-start-end-re range-str))
+          start-cell (matches 1)
+          end-cell (matches 2)
+          start (row-col-for-cell-ref start-cell)
+          end (row-col-for-cell-ref end-cell)]
+      (<= (:row start) row (:row end)))))
+
+;; Returns true if col number is contained in range string
+(defn col-in-range? [^number col ^string range-str]
+  (if (str-empty? range-str)
+    false
+    (let [col-char (if (char? col) col (num-to-char col))
+          matches (if (not (cell-range? range-str))
+                    (re-matches c/cell-range-start-end-re (str range-str ":" range-str))
+                    (re-matches c/cell-range-start-end-re range-str))
+          start-cell (matches 1)
+          end-cell (matches 2)
+          start (row-col-for-cell-ref start-cell)
+          end (row-col-for-cell-ref end-cell)]
+      (<= (:col start) col-char (:col end)))))
