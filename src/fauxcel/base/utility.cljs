@@ -1,9 +1,11 @@
 (ns fauxcel.base.utility
   (:require
+   [clojure.string :as s]
    [reagent.ratom]
    [fauxcel.base.state :as state :refer [cells-map current-selection current-formula edit-mode]]
    [fauxcel.util.dom :as dom :refer [querySelector]]
-   [fauxcel.base.constants :as c]))
+   [fauxcel.base.constants :as c]
+   [fauxcel.util.debug :as debug :refer [debug-log]]))
 
 (def ^:const cells-parent-selector "#app")
 
@@ -143,3 +145,51 @@
       (swap! cells-map
              assoc (cell-ref row col) c-map))
     (not-changed! cell-el)))
+
+(defn cell-ref? ^boolean [val] ; fix regex and move to constants
+  (cond
+    (= "" val) false
+    (number? val) false
+    (coll? val) false
+    :else
+    (not (nil? (re-seq #"^[A-Z]{1,2}[0-9]{1,4}$" val)))))
+
+(defn cell-range? ^boolean [token]
+  (if (string? token)
+    (not (nil? (re-seq c/cell-range-check-re token)))
+    false))
+
+(defn expand-cell-range [^string range-str]
+  (debug-log "expand-cell-range was passed range-str: " range-str)
+  (let [range-str-upper (s/upper-case range-str)]
+    (cond
+      (cell-range? range-str)
+      (let [matches (re-matches c/cell-range-start-end-re range-str-upper)
+            start-cell (matches 1)
+            end-cell (matches 2)
+            start (row-col-for-cell-ref start-cell)
+            end (row-col-for-cell-ref end-cell)]
+        (flatten (for [col (range (.charCodeAt (:col start)) (inc (.charCodeAt (:col end))))]
+                   (for [row (range (:row start) (inc (:row end)))]
+                     (str (char col) row)))))
+      (cell-ref? range-str)
+      (list range-str) ; return single cell
+      :else
+      nil)))
+
+(defn empty-cell? [cell-ref]
+  (let [data (cell-data-for cell-ref)]
+    (or
+     (nil? data)
+     (nil? (:value data))
+     (= (:value data) ""))))
+
+(defn not-empty-cell? [cell-ref]
+  (not (empty-cell? cell-ref)))
+
+;; Returns true if all cells in the range are empty
+(defn empty-cell-range? [^string cell-refs]
+  (not-any? not-empty-cell? (expand-cell-range cell-refs)))
+
+(defn not-empty-cell-range? [^string cell-refs]
+  (not (empty-cell-range? cell-refs)))

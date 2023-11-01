@@ -19,3 +19,10 @@
 (def ^:const key-ArrowRight "ArrowRight")
 (def ^:const key-Tab "Tab")
 (def ^:const key-Escape "Escape")
+
+(def ^:const default-cell-sheet-names ["cellsheet1" "cellsheet2" "cellsheet3"])
+
+;; turns the default-cell-sheet-names into keywords
+(def ^:const default-cell-sheets (mapv keyword default-cell-sheet-names))
+
+(def ^:const default-cell-sheet (first default-cell-sheets))

@@ -4,7 +4,7 @@
    [reagent.core :as r]
    [clojure.string :as s]
    [fauxcel.base.utility :as util :refer
-    [cell-value-for row-col-for-cell-ref]]
+    [cell-value-for cell-ref? expand-cell-range]]
    [fauxcel.base.constants :as c]
    [fauxcel.util.dates :as dates]
    [fauxcel.util.debug :as debug :refer [debug-log debug-log-detailed do-with-timer]]))
@@ -76,27 +76,6 @@
     (operator? token-str) 2
     :else 0))
 
-(defn cell-range? ^boolean [token]
-  (if (string? token)
-    (not (nil? (re-seq c/cell-range-check-re token)))
-    false))
-
-(defn expand-cell-range [^string range-str]
-  (debug-log "expand-cell-range was passed range-str: " range-str)
-  (let [range-str-upper (s/upper-case range-str)]
-    (cond
-      (cell-range? range-str)
-      (let [matches (re-matches c/cell-range-start-end-re range-str-upper)
-            start-cell (matches 1)
-            end-cell (matches 2)
-            start (row-col-for-cell-ref start-cell)
-            end (row-col-for-cell-ref end-cell)]
-        (flatten (for [col (range (.charCodeAt (:col start)) (inc (.charCodeAt (:col end))))]
-                   (for [row (range (:row start) (inc (:row end)))]
-                     (str (char col) row)))))
-      :else
-      nil)))
-
 (defn strip-whitespace ^string [^string input-str] ; discards whitespace, used before tokenizing
   (s/replace input-str #"\s(?=(?:\"[^\"]*\"|[^\"])*$)" ""))
 
@@ -143,14 +122,6 @@
 ;;; Looks up the precedence value from the operators map. Returns 0 if not found.
 (defn precedence [v]
   (or (:precedence (operators v)) 0))
-
-(defn cell-ref? ^boolean [val] ; fix regex and move to constants
-  (cond
-    (= "" val) false
-    (number? val) false
-    (coll? val) false
-    :else
-    (not (nil? (re-seq #"^[A-Z]{1,2}[0-9]{1,4}$" val))))) ; TODO this regex has 0-9 bug like others had before
 
 (defn eval-cell-ref
   ([cell-ref] (eval-cell-ref cell-ref true))

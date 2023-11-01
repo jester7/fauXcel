@@ -99,6 +99,122 @@ h3 {
   color: var(--button-text);
 }
 
+.cell-sheet-footer {
+  background: var(--dark-gradient);
+  height: 2em;
+  position: sticky;
+  bottom: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: row;
+}
+
+.cell-sheet-footer .button-group {
+  padding: 0.25em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.cell-sheet-footer .button-group button {
+  margin: 0 0.25em;
+}
+
+.cell-sheet-footer button.simple {
+  color: var(--accent-color);
+  font-size: 1em;
+  font-family: lexia-mono-variable, monospace;
+  font-variation-settings: "wght" 700;
+  font-style: normal;
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 0.25em;
+}
+
+.cell-sheet-footer button.simple:hover {
+  border: 1px solid rgba(120, 120, 120, 0.5);
+}
+
+.cell-sheet-footer button.simple:active {
+  border: 1px solid var(--accent-color);
+  background-color: var(--button-bg-active);
+}
+
+.tab-selector {
+  background-color: transparent;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: top;
+  padding: 0 .5em 0.25em .5em;
+}
+
+.tab-selector.bottom .tab {
+  border-bottom: 2px solid;
+  border-top: none;
+  border-radius: 0 0 0.5em 0.5em;
+}
+
+.tab-selector.top .tab {
+  border-bottom: none;
+  border-top: 2px solid;
+  border-radius: 0.5em 0.5em 0 0;
+}
+
+.tab-selector .tab.active {
+  box-shadow: 0px 0.1em 0.1em var(--highlight);
+  border-color: var(--highlight);
+}
+
+.tab.active span {
+  color: var(--dark-color-1);
+}
+
+.tab span {
+  color: black;
+  user-select: none;
+}
+
+.tab-selector .tab {
+  background-color: var(--bg-color-light);
+  padding: 0.25em 0.3em;
+  margin: 0 4px 0 0;
+  border-color: none;
+  border-left: 2px solid;
+  border-right: 2px solid;
+  box-shadow: 0px 0.1em 0.1em rgba(0,0,0,0.5);
+  cursor: pointer;
+}
+
+.auto-formula-panel {
+  color: var(--button-text);
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  flex-grow: 1;
+  margin-left: auto;
+  padding-right: 1em;
+}
+
+.auto-formula .result {
+  padding: 0 0 0 0.25em;
+}
+
+.auto-formula-panel .auto-formula, .auto-formula-panel .empty-selection {
+  font-family: lexia-mono-variable, monospace;
+  font-variation-settings: "wght" 500;
+  font-style: normal;
+  padding: 0 0.5em;
+}
+
+.auto-formula-panel .auto-formula .result {
+  font-family: lexia-mono-variable, monospace;
+  font-variation-settings: "wght" 600;
+  font-style: normal;
+  color: var(--accent-color);
+}
+
 .toolbar-item.button {
   font-size: 1.25em;
   cursor: pointer;
@@ -237,7 +353,7 @@ h3 {
 
 
 .cellgrid {
-  height: calc(100vh - 3em);
+  height: calc(100vh - 4.75em);
   width:100%;
   overflow: auto;
 }

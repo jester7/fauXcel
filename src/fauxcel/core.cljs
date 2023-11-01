@@ -2,8 +2,10 @@
   (:require
    [reagent.core :as r]
    [reagent.dom :as d]
+   [fauxcel.base.state :as state :refer [current-cell-sheet]]
    [fauxcel.components.toolbar.toolbar :refer [toolbar]]
    [fauxcel.components.spreadsheet :refer [cellgrid]]
+   [fauxcel.components.tabs :refer [cell-sheet-footer]]
    [fauxcel.util.dom :as dom]))
 
 ;; -------------------------
@@ -13,7 +15,8 @@
   [:div.appwrapper
    [toolbar]
    [:div#clippy]
-   [cellgrid]])
+   [cellgrid]
+   [cell-sheet-footer]])
 
 ;; -------------------------
 ;; Initialize app
