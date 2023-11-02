@@ -1,0 +1,189 @@
+
+
+.cell-bold {
+    font-weight: 700;
+}
+
+.cell-italic {
+    font-style: italic;
+}
+
+.cell-underline {
+    text-decoration: underline;
+}
+
+.cell-strikethrough {
+    text-decoration: line-through;
+}
+
+.cell-nowrap {
+    white-space: nowrap;
+}
+
+.cell-align-left {
+    text-align: left;
+}
+
+.cell-align-center {
+    text-align: center;
+}
+
+.cell-align-right {
+    text-align: right;
+}
+
+.cell-align-justify {
+    text-align: justify;
+}
+
+.cell-valign-top {
+    vertical-align: top;
+}
+
+.cell-valign-middle {
+    vertical-align: middle;
+}
+
+.cell-valign-bottom {
+    vertical-align: bottom;
+}
+
+.cell-border-top {
+    border-top: 1px solid #000;
+}
+
+.cell-text-color-black {
+    color: #000;
+}
+
+.cell-text-color-white {
+    color: #fff;
+}
+
+.cell-text-color-red {
+    color: #f00;
+}
+
+.cell-text-color-green {
+    color: #0f0;
+}
+
+.cell-text-color-blue {
+    color: #00f;
+}
+
+.cell-text-color-yellow {
+    color: #ff0;
+}
+
+.cell-text-color-magenta {
+    color: #f0f;
+}
+
+.cell-text-color-cyan {
+    color: #0ff;
+}
+
+.cell-text-color-gray {
+    color: #808080;
+}
+
+.cell-text-color-orange {
+    color: #ffa500;
+}
+
+.cell-text-color-purple {
+    color: #800080;
+}
+
+.cell-text-color-brown {
+    color: #a52a2a;
+}
+
+.cell-text-color-pink {
+    color: #ffc0cb;
+}
+
+.cell-text-color-gold {
+    color: #ffd700;
+}
+
+.cell-text-color-silver {
+    color: #c0c0c0;
+}
+
+.cell-bg-color-black {
+    background-color: #000;
+}
+
+.cell-bg-color-white {
+    background-color: #fff;
+}
+
+.cell-bg-color-red {
+    background-color: #f00;
+}
+
+.cell-bg-color-green {
+    background-color: #0f0;
+}
+
+.cell-bg-color-blue {
+    background-color: #00f;
+}
+
+.cell-bg-color-yellow {
+    background-color: #ff0;
+}
+
+.cell-bg-color-magenta {
+    background-color: #f0f;
+}
+
+.cell-bg-color-cyan {
+    background-color: #0ff;
+}
+
+.cell-bg-color-gray {
+    background-color: #808080;
+}
+
+.cell-bg-color-orange {
+    background-color: #ffa500;
+}
+
+.cell-bg-color-purple {
+    background-color: #800080;
+}
+
+.cell-bg-color-brown {
+    background-color: #a52a2a;
+}
+
+.cell-bg-color-pink {
+    background-color: #ffc0cb;
+}
+
+.cell-bg-color-gold {
+    background-color: #ffd700;
+}
+
+.cell-bg-color-silver {
+    background-color: #c0c0c0;
+}
+
+.cell-border-top {
+    border-top: 1px solid #000;
+}
+
+.cell-border-right {
+    border-right: 1px solid #000;
+}
+
+.cell-border-bottom {
+    border-bottom: 1px solid #000;
+}
+
+.cell-border-left {
+    border-left: 1px solid #000;
+}
