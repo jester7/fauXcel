@@ -25,8 +25,15 @@
       (:ctrl? key-press-info)
       (:alt? key-press-info)))
 
+(defn has-modifier-key-except-shift? [key-press-info]
+  (or (:ctrl? key-press-info)
+      (:alt? key-press-info)))
+
 (defn not-modifier-key? [key-press-info]
   (not (has-modifier-key? key-press-info)))
+
+(defn not-modifier-key-except-shift? [key-press-info]
+  (not (has-modifier-key-except-shift? key-press-info)))
 
 (defn handle-keyboard-arrow-up!
   [^js/HTMLElement curr-cell key-press-info]
@@ -102,7 +109,7 @@
 
 (defn handle-keyboard-any-key!
   [^js/HTMLElement curr-cell key-press-info]
-  (when (and (not @edit-mode) (not-modifier-key? key-press-info))
+  (when (and (not @edit-mode) (not-modifier-key-except-shift? key-press-info))
     (set! (-> curr-cell .-readOnly) false)
     (reset! edit-mode true)
     (update-selection! curr-cell true)
