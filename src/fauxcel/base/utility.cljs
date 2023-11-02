@@ -144,7 +144,7 @@
           col (get-cell-col cell-el)
           cell-r (cell-ref row col)
           c-map {:formula (if (is-formula? val) val (:formula (@cells-map cell-r)))
-                 :format ""
+                 :format (:format (@cells-map cell-r))
                  :value (if (is-formula? val) (parser val) val)}] ; invoke parser if formula, else just set value
       (set! (-> cell-el .-value) (deref-or-val (:value c-map)))
       (swap! cells-map
