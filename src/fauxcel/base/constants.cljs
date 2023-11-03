@@ -19,6 +19,11 @@
 (def ^:const key-ArrowRight "ArrowRight")
 (def ^:const key-Tab "Tab")
 (def ^:const key-Escape "Escape")
+(def ^:const key-Backspace "Backspace")
+(def ^:const key-Delete "Delete")
+(def ^:const key-Shift "Shift")
+(def ^:const key-Control "Control")
+(def ^:const key-Alt "Alt")
 
 (def ^:const default-cell-sheet-names ["cellsheet1" "cellsheet2" "cellsheet3"])
 
