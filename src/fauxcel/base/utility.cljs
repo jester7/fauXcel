@@ -125,6 +125,14 @@
      (when get-formula?
        (set! (-> el .-value) (if (nil? formula) value formula))))))
 
+(defn update-multi-selection!
+  [^number start-row ^number start-col ^number end-row ^number end-col]
+  (println "update-multi-selection! start-row: " start-row " start-col: " start-col " end-row: " end-row " end-col: " end-col)
+  (let [start (cell-ref start-row start-col)
+        end (cell-ref end-row end-col)
+        selection-range (str start ":" end)]
+    (reset! current-selection selection-range)))
+
 (defn get-cell-row [^js/HTMLElement cell-el]
   (js/parseInt (-> cell-el .-dataset .-row)))
 
@@ -165,7 +173,7 @@
     false))
 
 (defn expand-cell-range [^string range-str]
-  (debug-log "expand-cell-range was passed range-str: " range-str)
+  ;(debug-log "expand-cell-range was passed range-str: " range-str)
   (let [range-str-upper (s/upper-case range-str)]
     (cond
       (cell-range? range-str)
@@ -199,9 +207,31 @@
 (defn not-empty-cell-range? [^string cell-refs]
   (not (empty-cell-range? cell-refs)))
 
+;; Flips cell range to be in order from top left to bottom right
+(defn flip-range-if-unordered [^string range-str]
+  (let [matches (re-matches c/cell-range-start-end-re range-str)
+        start-cell (matches 1)
+        end-cell (matches 2)
+        start (row-col-for-cell-ref start-cell)
+        end (row-col-for-cell-ref end-cell)]
+    (if (and (<= (:row start) (:row end))
+             (<= (.charCodeAt (:col start)) (.charCodeAt (:col end))))
+      range-str
+      (str end-cell ":" start-cell))))
+
 ;; Returns true if cell is contained in the range
 (defn cell-in-range? [^string cell-ref ^string range-str]
-  (or (some #(= cell-ref %) (expand-cell-range range-str)) false)) ; or coerces to false if nil
+  (if (cell-range? range-str)
+    (let [range-str (flip-range-if-unordered range-str)
+          matches (re-matches c/cell-range-start-end-re range-str)
+          start-cell (matches 1)
+          end-cell (matches 2)
+          start (row-col-for-cell-ref start-cell)
+          end (row-col-for-cell-ref end-cell)
+          cell (row-col-for-cell-ref cell-ref)]
+      (and (<= (:row start) (:row cell) (:row end))
+           (<= (.charCodeAt (:col start)) (.charCodeAt (:col cell)) (.charCodeAt (:col end)))))
+  (or (= cell-ref range-str) false))) ; or coerces to false if nil
 
 ;; Returns true if row number is contained in range string
 (defn row-in-range? [^number row ^string range-str]
