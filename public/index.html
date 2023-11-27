@@ -1,35 +1,236 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1" name="viewport" />
-    <link href="/css/css-vars.css" rel="stylesheet" type="text/css" />
-    <link href="/css/reset.css" rel="stylesheet" type="text/css" />
-    <link href="/css/site.css" rel="stylesheet" type="text/css" />
-    <link href="/css/cell-styles.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="https://use.typekit.net/ucp3tjs.css" />
 
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-    <link rel="manifest" href="/site.webmanifest" />
-    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#120052" />
-    <meta name="msapplication-TileColor" content="#51d1e1" />
-    <meta name="theme-color" content="#51d1e1" />
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <link href="/css/css-vars.css" rel="stylesheet" type="text/css" />
+  <link href="/css/reset.css" rel="stylesheet" type="text/css" />
+  <link href="/css/site.css" rel="stylesheet" type="text/css" />
+  <link href="/css/cell-styles.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="https://use.typekit.net/ucp3tjs.css" />
 
-    <title>FauXcel</title>
-  </head>
-  <body>
-    <div id="app">
-      <div class="loading-wrapper">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#120052" />
+  <meta name="msapplication-TileColor" content="#51d1e1" />
+  <meta name="theme-color" content="#51d1e1" />
+
+  <title>FauXcel</title>
+</head>
+
+<body>
+  <div id="app">
+    <div class="loading-wrapper">
+      <div class="modal about">
         <div class="logo loading"></div>
         <h1 class="logotype">fauXcel</h1>
         <div class="loading-text">loading...</div>
       </div>
     </div>
-    <script src="/js/app.js" type="text/javascript"></script>
-    <script type="text/javascript">
-      fauxcel.core.init_BANG_();
-    </script>
-  </body>
+    <div class="appwrapper">
+      <ul class="toolbar dark-bg">
+        <li class="toolbar-item"><span class="small logo"></span></li>
+        <li class="toolbar-item button separator"><span class="icon">|</span></li>
+        <li class="toolbar-item formula-input"><span class="toolbar-label">f(x)</span><input class="formula-input"></li>
+        <li class="toolbar-item button separator"><span class="icon">|</span></li>
+        <li class="toolbar-item button github"><span class="icon"> </span><span class="caption"><a
+              href="https://github.com/jester7/fauxcel">GitHub</a></span></li>
+      </ul>
+      <div id="clippy"></div>
+      <div class="cellgrid wrapper">
+        <div class="row wrapper"><span class="row-label ">0</span><span class="col-label ">A</span><span
+            class="col-label ">B</span><span class="col-label ">C</span><span class="col-label ">D</span><span
+            class="col-label ">E</span><span class="col-label ">F</span><span class="col-label ">G</span><span
+            class="col-label ">H</span><span class="col-label ">I</span><span class="col-label ">J</span><span
+            class="col-label ">K</span><span class="col-label ">L</span><span class="col-label ">M</span><span
+            class="col-label ">N</span></div>
+        <div class="row wrapper"><span class="row-label ">1</span><input id="A1" class="cell"><input id="B1"
+            class="cell"><input id="C1" class="cell"><input id="D1" class="cell"><input id="E1" class="cell"><input
+            id="F1" class="cell"><input data-col="7" id="G1" class="cell"><input id="H1" class="cell"><input id="I1"
+            class="cell"><input id="J1" class="cell"><input data-row="1" id="K1" class="cell"><input id="L1"
+            class="cell"><input id="M1" class="cell"><input data-col="14" id="N1" class="cell"></div>
+        <div class="row wrapper"><span class="row-label ">2</span><input id="A2" class="cell"><input id="B2"
+            class="cell"><input id="C2" class="cell"><input id="D2" class="cell"><input id="E2" class="cell"><input
+            id="F2" class="cell"><input data-col="7" id="G2" class="cell"><input id="H2" class="cell"><input id="I2"
+            class="cell"><input id="J2" class="cell"><input data-row="2" id="K2" class="cell"><input id="L2"
+            class="cell"><input id="M2" class="cell"><input data-col="14" id="N2" class="cell"></div>
+        <div class="row wrapper"><span class="row-label ">3</span><input id="A3" class="cell"><input id="B3"
+            class="cell"><input id="C3" class="cell"><input id="D3" class="cell"><input id="E3" class="cell"><input
+            id="F3" class="cell"><input data-col="7" id="G3" class="cell"><input id="H3" class="cell"><input id="I3"
+            class="cell"><input id="J3" class="cell"><input data-row="3" id="K3" class="cell"><input id="L3"
+            class="cell"><input id="M3" class="cell"><input data-col="14" id="N3" class="cell"></div>
+        <div class="row wrapper"><span class="row-label ">4</span><input id="A4" class="cell"><input id="B4"
+            class="cell"><input id="C4" class="cell"><input id="D4" class="cell"><input id="E4" class="cell"><input
+            id="F4" class="cell"><input data-col="7" id="G4" class="cell"><input id="H4" class="cell"><input id="I4"
+            class="cell"><input id="J4" class="cell"><input data-row="4" id="K4" class="cell"><input id="L4"
+            class="cell"><input id="M4" class="cell"><input data-col="14" id="N4" class="cell"></div>
+        <div class="row wrapper"><span class="row-label ">5</span><input id="A5" class="cell"><input id="B5"
+            class="cell"><input id="C5" class="cell"><input id="D5" class="cell"><input id="E5" class="cell"><input
+            id="F5" class="cell"><input data-col="7" id="G5" class="cell"><input id="H5" class="cell"><input id="I5"
+            class="cell"><input id="J5" class="cell"><input data-row="5" id="K5" class="cell"><input id="L5"
+            class="cell"><input id="M5" class="cell"><input data-col="14" id="N5" class="cell"></div>
+        <div class="row wrapper"><span class="row-label ">6</span><input id="A6" class="cell"><input id="B6"
+            class="cell"><input id="C6" class="cell"><input id="D6" class="cell"><input id="E6" class="cell"><input
+            id="F6" class="cell"><input data-col="7" id="G6" class="cell"><input id="H6" class="cell"><input id="I6"
+            class="cell"><input id="J6" class="cell"><input data-row="6" id="K6" class="cell"><input id="L6"
+            class="cell"><input id="M6" class="cell"><input data-col="14" id="N6" class="cell"></div>
+        <div class="row wrapper"><span class="row-label ">7</span><input id="A7" class="cell"><input id="B7"
+            class="cell"><input id="C7" class="cell"><input id="D7" class="cell"><input id="E7" class="cell"><input
+            id="F7" class="cell"><input data-col="7" id="G7" class="cell"><input id="H7" class="cell"><input id="I7"
+            class="cell"><input id="J7" class="cell"><input data-row="7" id="K7" class="cell"><input id="L7"
+            class="cell"><input id="M7" class="cell"><input data-col="14" id="N7" class="cell"></div>
+        <div class="row wrapper"><span class="row-label ">8</span><input id="A8" class="cell"><input id="B8"
+            class="cell"><input id="C8" class="cell"><input id="D8" class="cell"><input id="E8" class="cell"><input
+            id="F8" class="cell"><input data-col="7" id="G8" class="cell"><input id="H8" class="cell"><input id="I8"
+            class="cell"><input id="J8" class="cell"><input data-row="8" id="K8" class="cell"><input id="L8"
+            class="cell"><input id="M8" class="cell"><input data-col="14" id="N8" class="cell"></div>
+        <div class="row wrapper"><span class="row-label ">9</span><input id="A9" class="cell"><input id="B9"
+            class="cell"><input id="C9" class="cell"><input id="D9" class="cell"><input id="E9" class="cell"><input
+            id="F9" class="cell"><input data-col="7" id="G9" class="cell"><input id="H9" class="cell"><input id="I9"
+            class="cell"><input id="J9" class="cell"><input data-row="9" id="K9" class="cell"><input id="L9"
+            class="cell"><input id="M9" class="cell"><input data-col="14" id="N9" class="cell"></div>
+        <div class="row wrapper"><span class="row-label ">10</span><input id="A10" class="cell"><input id="B10"
+            class="cell"><input id="C10" class="cell"><input data-col="4" id="D10" class="cell"><input id="E10"
+            class="cell"><input id="F10" class="cell"><input id="G10" class="cell"><input data-col="8" id="H10"
+            class="cell"><input id="I10" class="cell"><input id="J10" class="cell"><input id="K10" class="cell"><input
+            data-col="12" id="L10" class="cell"><input id="M10" class="cell"><input id="N10" class="cell"></div>
+        <div class="row wrapper"><span class="row-label ">11</span><input id="A11" class="cell"><input id="B11"
+            class="cell"><input id="C11" class="cell"><input data-col="4" id="D11" class="cell"><input id="E11"
+            class="cell"><input id="F11" class="cell"><input id="G11" class="cell"><input data-col="8" id="H11"
+            class="cell"><input id="I11" class="cell"><input id="J11" class="cell"><input id="K11" class="cell"><input
+            data-col="12" id="L11" class="cell"><input id="M11" class="cell"><input id="N11" class="cell"></div>
+        <div class="row wrapper"><span class="row-label ">12</span><input id="A12" class="cell"><input id="B12"
+            class="cell"><input id="C12" class="cell"><input data-col="4" id="D12" class="cell"><input id="E12"
+            class="cell"><input id="F12" class="cell"><input id="G12" class="cell"><input data-col="8" id="H12"
+            class="cell"><input id="I12" class="cell"><input id="J12" class="cell"><input id="K12" class="cell"><input
+            data-col="12" id="L12" class="cell"><input id="M12" class="cell"><input id="N12" class="cell"></div>
+        <div class="row wrapper"><span class="row-label ">13</span><input id="A13" class="cell"><input id="B13"
+            class="cell"><input id="C13" class="cell"><input data-col="4" id="D13" class="cell"><input id="E13"
+            class="cell"><input id="F13" class="cell"><input id="G13" class="cell"><input data-col="8" id="H13"
+            class="cell"><input id="I13" class="cell"><input id="J13" class="cell"><input id="K13" class="cell"><input
+            data-col="12" id="L13" class="cell"><input id="M13" class="cell"><input id="N13" class="cell"></div>
+        <div class="row wrapper"><span class="row-label ">14</span><input id="A14" class="cell"><input id="B14"
+            class="cell"><input id="C14" class="cell"><input data-col="4" id="D14" class="cell"><input id="E14"
+            class="cell"><input id="F14" class="cell"><input id="G14" class="cell"><input data-col="8" id="H14"
+            class="cell"><input id="I14" class="cell"><input id="J14" class="cell"><input id="K14" class="cell"><input
+            data-col="12" id="L14" class="cell"><input id="M14" class="cell"><input id="N14" class="cell"></div>
+        <div class="row wrapper"><span class="row-label ">15</span><input id="A15" class="cell"><input id="B15"
+            class="cell"><input id="C15" class="cell"><input data-col="4" id="D15" class="cell"><input id="E15"
+            class="cell"><input id="F15" class="cell"><input id="G15" class="cell"><input data-col="8" id="H15"
+            class="cell"><input id="I15" class="cell"><input id="J15" class="cell"><input id="K15" class="cell"><input
+            data-col="12" id="L15" class="cell"><input id="M15" class="cell"><input id="N15" class="cell"></div>
+        <div class="row wrapper"><span class="row-label ">16</span><input id="A16" class="cell"><input id="B16"
+            class="cell"><input id="C16" class="cell"><input data-col="4" id="D16" class="cell"><input id="E16"
+            class="cell"><input id="F16" class="cell"><input id="G16" class="cell"><input data-col="8" id="H16"
+            class="cell"><input id="I16" class="cell"><input id="J16" class="cell"><input id="K16" class="cell"><input
+            data-col="12" id="L16" class="cell"><input id="M16" class="cell"><input id="N16" class="cell"></div>
+        <div class="row wrapper"><span class="row-label ">17</span><input id="A17" class="cell"><input id="B17"
+            class="cell"><input id="C17" class="cell"><input data-col="4" id="D17" class="cell"><input id="E17"
+            class="cell"><input id="F17" class="cell"><input id="G17" class="cell"><input data-col="8" id="H17"
+            class="cell"><input id="I17" class="cell"><input id="J17" class="cell"><input id="K17" class="cell"><input
+            data-col="12" id="L17" class="cell"><input id="M17" class="cell"><input id="N17" class="cell"></div>
+        <div class="row wrapper"><span class="row-label ">18</span><input id="A18" class="cell"><input id="B18"
+            class="cell"><input id="C18" class="cell"><input data-col="4" id="D18" class="cell"><input id="E18"
+            class="cell"><input id="F18" class="cell"><input id="G18" class="cell"><input data-col="8" id="H18"
+            class="cell"><input id="I18" class="cell"><input id="J18" class="cell"><input id="K18" class="cell"><input
+            data-col="12" id="L18" class="cell"><input id="M18" class="cell"><input id="N18" class="cell"></div>
+        <div class="row wrapper"><span class="row-label ">19</span><input id="A19" class="cell"><input id="B19"
+            class="cell"><input id="C19" class="cell"><input data-col="4" id="D19" class="cell"><input id="E19"
+            class="cell"><input id="F19" class="cell"><input id="G19" class="cell"><input data-col="8" id="H19"
+            class="cell"><input id="I19" class="cell"><input id="J19" class="cell"><input id="K19" class="cell"><input
+            data-col="12" id="L19" class="cell"><input id="M19" class="cell"><input id="N19" class="cell"></div>
+        <div class="row wrapper"><span class="row-label ">20</span><input id="A20" class="cell"><input id="B20"
+            class="cell"><input id="C20" class="cell"><input data-col="4" id="D20" class="cell"><input id="E20"
+            class="cell"><input id="F20" class="cell"><input id="G20" class="cell"><input data-col="8" id="H20"
+            class="cell"><input id="I20" class="cell"><input id="J20" class="cell"><input id="K20" class="cell"><input
+            data-col="12" id="L20" class="cell"><input id="M20" class="cell"><input id="N20" class="cell"></div>
+        <div class="row wrapper"><span class="row-label ">21</span><input id="A21" class="cell"><input id="B21"
+            class="cell"><input id="C21" class="cell"><input data-col="4" id="D21" class="cell"><input id="E21"
+            class="cell"><input id="F21" class="cell"><input id="G21" class="cell"><input data-col="8" id="H21"
+            class="cell"><input id="I21" class="cell"><input id="J21" class="cell"><input id="K21" class="cell"><input
+            data-col="12" id="L21" class="cell"><input id="M21" class="cell"><input id="N21" class="cell"></div>
+        <div class="row wrapper"><span class="row-label ">22</span><input id="A22" class="cell"><input id="B22"
+            class="cell"><input id="C22" class="cell"><input data-col="4" id="D22" class="cell"><input id="E22"
+            class="cell"><input id="F22" class="cell"><input id="G22" class="cell"><input data-col="8" id="H22"
+            class="cell"><input id="I22" class="cell"><input id="J22" class="cell"><input id="K22" class="cell"><input
+            data-col="12" id="L22" class="cell"><input id="M22" class="cell"><input id="N22" class="cell"></div>
+        <div class="row wrapper"><span class="row-label ">23</span><input id="A23" class="cell"><input id="B23"
+            class="cell"><input id="C23" class="cell"><input data-col="4" id="D23" class="cell"><input id="E23"
+            class="cell"><input id="F23" class="cell"><input id="G23" class="cell"><input data-col="8" id="H23"
+            class="cell"><input id="I23" class="cell"><input id="J23" class="cell"><input id="K23" class="cell"><input
+            data-col="12" id="L23" class="cell"><input id="M23" class="cell"><input id="N23" class="cell"></div>
+        <div class="row wrapper"><span class="row-label ">24</span><input id="A24" class="cell"><input id="B24"
+            class="cell"><input id="C24" class="cell"><input data-col="4" id="D24" class="cell"><input id="E24"
+            class="cell"><input id="F24" class="cell"><input id="G24" class="cell"><input data-col="8" id="H24"
+            class="cell"><input id="I24" class="cell"><input id="J24" class="cell"><input id="K24" class="cell"><input
+            data-col="12" id="L24" class="cell"><input id="M24" class="cell"><input id="N24" class="cell"></div>
+        <div class="row wrapper"><span class="row-label ">25</span><input id="A25" class="cell"><input id="B25"
+            class="cell"><input id="C25" class="cell"><input data-col="4" id="D25" class="cell"><input id="E25"
+            class="cell"><input id="F25" class="cell"><input id="G25" class="cell"><input data-col="8" id="H25"
+            class="cell"><input id="I25" class="cell"><input id="J25" class="cell"><input id="K25" class="cell"><input
+            data-col="12" id="L25" class="cell"><input id="M25" class="cell"><input id="N25" class="cell"></div>
+        <div class="row wrapper"><span class="row-label ">26</span><input id="A26" class="cell"><input id="B26"
+            class="cell"><input id="C26" class="cell"><input data-col="4" id="D26" class="cell"><input id="E26"
+            class="cell"><input id="F26" class="cell"><input id="G26" class="cell"><input data-col="8" id="H26"
+            class="cell"><input id="I26" class="cell"><input id="J26" class="cell"><input id="K26" class="cell"><input
+            data-col="12" id="L26" class="cell"><input id="M26" class="cell"><input id="N26" class="cell"></div>
+        <div class="row wrapper"><span class="row-label ">27</span><input id="A27" class="cell"><input id="B27"
+            class="cell"><input id="C27" class="cell"><input data-col="4" id="D27" class="cell"><input id="E27"
+            class="cell"><input id="F27" class="cell"><input id="G27" class="cell"><input data-col="8" id="H27"
+            class="cell"><input id="I27" class="cell"><input id="J27" class="cell"><input id="K27" class="cell"><input
+            data-col="12" id="L27" class="cell"><input id="M27" class="cell"><input id="N27" class="cell"></div>
+        <div class="row wrapper"><span class="row-label ">28</span><input id="A28" class="cell"><input id="B28"
+            class="cell"><input id="C28" class="cell"><input data-col="4" id="D28" class="cell"><input id="E28"
+            class="cell"><input id="F28" class="cell"><input id="G28" class="cell"><input data-col="8" id="H28"
+            class="cell"><input id="I28" class="cell"><input id="J28" class="cell"><input id="K28" class="cell"><input
+            data-col="12" id="L28" class="cell"><input id="M28" class="cell"><input id="N28" class="cell"></div>
+        <div class="row wrapper"><span class="row-label ">29</span><input id="A29" class="cell"><input id="B29"
+            class="cell"><input id="C29" class="cell"><input data-col="4" id="D29" class="cell"><input id="E29"
+            class="cell"><input id="F29" class="cell"><input id="G29" class="cell"><input data-col="8" id="H29"
+            class="cell"><input id="I29" class="cell"><input id="J29" class="cell"><input id="K29" class="cell"><input
+            data-col="12" id="L29" class="cell"><input id="M29" class="cell"><input id="N29" class="cell"></div>
+        <div class="row wrapper"><span class="row-label ">30</span><input id="A30" class="cell"><input id="B30"
+            class="cell"><input id="C30" class="cell"><input data-col="4" id="D30" class="cell"><input id="E30"
+            class="cell"><input id="F30" class="cell"><input id="G30" class="cell"><input data-col="8" id="H30"
+            class="cell"><input id="I30" class="cell"><input id="J30" class="cell"><input id="K30" class="cell"><input
+            data-col="12" id="L30" class="cell"><input id="M30" class="cell"><input id="N30" class="cell"></div>
+        <div class="row wrapper"><span class="row-label ">31</span><input id="A31" class="cell"><input id="B31"
+            class="cell"><input id="C31" class="cell"><input data-col="4" id="D31" class="cell"><input id="E31"
+            class="cell"><input id="F31" class="cell"><input id="G31" class="cell"><input data-col="8" id="H31"
+            class="cell"><input id="I31" class="cell"><input id="J31" class="cell"><input id="K31" class="cell"><input
+            data-col="12" id="L31" class="cell"><input id="M31" class="cell"><input id="N31" class="cell"></div>
+        <div class="row wrapper"><span class="row-label ">32</span><input id="A32" class="cell"><input id="B32"
+            class="cell"><input id="C32" class="cell"><input data-col="4" id="D32" class="cell"><input id="E32"
+            class="cell"><input id="F32" class="cell"><input id="G32" class="cell"><input data-col="8" id="H32"
+            class="cell"><input id="I32" class="cell"><input id="J32" class="cell"><input id="K32" class="cell"><input
+            data-col="12" id="L32" class="cell"><input id="M32" class="cell"><input id="N32" class="cell"></div>
+        <div class="row wrapper"><span class="row-label ">33</span><input id="A33" class="cell"><input id="B33"
+            class="cell"><input id="C33" class="cell"><input data-col="4" id="D33" class="cell"><input id="E33"
+            class="cell"><input id="F33" class="cell"><input id="G33" class="cell"><input data-col="8" id="H33"
+            class="cell"><input id="I33" class="cell"><input id="J33" class="cell"><input id="K33" class="cell"><input
+            data-col="12" id="L33" class="cell"><input id="M33" class="cell"><input id="N33" class="cell"></div>
+        <div class="row wrapper"><span class="row-label ">34</span><input id="A34" class="cell"><input id="B34"
+            class="cell"><input id="C34" class="cell"><input data-col="4" id="D34" class="cell"><input id="E34"
+            class="cell"><input id="F34" class="cell"><input id="G34" class="cell"><input data-col="8" id="H34"
+            class="cell"><input id="I34" class="cell"><input id="J34" class="cell"><input id="K34" class="cell"><input
+            data-col="12" id="L34" class="cell"><input id="M34" class="cell"><input id="N34" class="cell"></div>
+      </div>
+      <div class="cell-sheet-footer">
+        <div class="button-group"><button title="Add New Cellsheet" class="simple add-sheet">+</button><button
+            title="All Cellsheets" class="simple sheet-menu">≡</button></div>
+        <div class="tab-selector bottom">
+        </div>
+        <div class="auto-formula-panel"><span class="empty-selection">fauXcel is loading</span></div>
+      </div>
+    </div>
+  </div>
+  <script src="/js/app.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    fauxcel.core.init_BANG_();
+  </script>
+</body>
+
 </html>
