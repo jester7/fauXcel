@@ -5,7 +5,7 @@
    [fauxcel.base.parser :as parser]
    [fauxcel.base.keyboard-handlers :as keyboard-handlers :refer [keyboard-navigation]]
    [fauxcel.base.format :as format :refer [get-format-style]]
-   [fauxcel.base.utility :as base-util :refer [update-selection! col-label
+   [fauxcel.base.utility :as base-util :refer [update-selection! cell-ref col-label cell-in-range?
                                                selection-cell-ref recursive-deref
                                                cell-ref-for-input row-in-range? col-in-range?]]))
 
@@ -16,18 +16,22 @@
              [:span.row-label {:key (str "row-label" row) :class
                                (if (row-in-range? row @current-selection) "selected" "")} row]
              (doall (for [col (range 1 max-cols)]
-                      (if (= row 0)
+                      (let [cell-ref (cell-ref row col)]
+                       (if (= row 0)
                         (col-label col (col-in-range? col @current-selection))
                         [:input.cell
-                         {:default-value (base-util/recursive-deref (:value (@cells-map (base-util/cell-ref row col))))
+                         {:default-value (base-util/recursive-deref (:value (@cells-map cell-ref)))
                           :read-only true
                           :key (str
-                                (base-util/cell-ref row col) "-"
-                                (base-util/recursive-deref (:value (@cells-map (base-util/cell-ref row col)))))
+                                cell-ref "-"
+                                (base-util/recursive-deref (:value (@cells-map cell-ref))))
                           :data-row row
                           :data-col col
-                          :id (base-util/cell-ref row col)
-                          :class (get-format-style (base-util/cell-ref row col))
+                          :id cell-ref
+                          :class (str (if (cell-in-range? cell-ref @current-selection)
+                                        " selected "
+                                        "")
+                                      (get-format-style cell-ref))
                           :on-change
                           #(base-util/changed! (.-target %1))
                           :on-click
@@ -45,4 +49,4 @@
                             (update-selection! (.-target e) true)
                             (set! (-> e .-target .-readOnly) false))
                           :on-blur
-                          #(base-util/handle-cell-blur (.-target %1) parser/parse-formula)}])))]))])
+                          #(base-util/handle-cell-blur (.-target %1) parser/parse-formula)}]))))]))])
