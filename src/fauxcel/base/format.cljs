@@ -1,7 +1,7 @@
 (ns fauxcel.base.format
-  (:require
-   [clojure.string :as s]
-   [fauxcel.base.state :as state :refer [cells-map]]))
+  (:require [clojure.set :refer [difference]]
+            [clojure.string :as s]
+            [fauxcel.base.state :as state :refer [cells-map]]))
 
 (defn get-format [^string cell-ref]
   (let [format (:format (@cells-map cell-ref))]
@@ -21,9 +21,18 @@
 (defn set-format-style! [^string cell-ref style]
   (swap! cells-map assoc-in [cell-ref :format :style] style))
 
-(defn add-style [^string cell-ref ^string style]
+(defn add-styles [^string cell-ref ^string & new-styles]
   (let [current-styles (get-format-style cell-ref)
         styles (if
-                (nil? current-styles) (list style)
-                 (conj (s/split current-styles #" ") style))]
-    (set-format-style! cell-ref (s/join " " (set styles))))) 
+                (nil? current-styles) new-styles
+                ; add each style to the set of styles
+                (set (concat (s/split current-styles #" ") new-styles)))]
+    (set-format-style! cell-ref (s/join " " styles))))
+
+(defn remove-styles [^string cell-ref ^string & remove-styles]
+  (let [current-styles (get-format-style cell-ref)
+        styles (if
+                (nil? current-styles) nil
+                  ; remove each style from the set of styles
+                (difference (set (s/split current-styles #" ")) remove-styles))]
+    (set-format-style! cell-ref (s/join " " styles))))
